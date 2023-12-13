@@ -16,4 +16,5 @@
 			</div>
 		</div>
 	</div>
+	<BackGround />
 </template>
