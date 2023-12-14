@@ -12,7 +12,15 @@
 
 <script setup lang='ts'>
 	import useImageStore from '@/stores/image';
+	import useFileReader from '@/composables/useFileReader';
 
 	const store = useImageStore();
+	const fileReader = useFileReader(store.file, () => {
+		if (fileReader.result) {
+			const dataURL = fileReader.result.toString();
+
+			console.log(dataURL);
+		};
+	});
 	const filters = ['Oceanic', 'Vintage', 'Rose-Tint'];
 </script>
