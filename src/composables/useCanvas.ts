@@ -5,10 +5,20 @@ export default function useCanvas() {
 	let context: CanvasRenderingContext2D | null = null;
 	const image = new Image();
 
-	function draw() {
-		if (context) {
-			context.drawImage(image, 0, 0);
+	function calculateNewDimensions(width: number, height: number) {
+		const aspectRatio = Math.min(448 / width, 448, height);
 
+		return [width * aspectRatio, height * aspectRatio];
+	};
+
+	function draw() {
+		if (canvas.value && context) {
+			const newDimensions = calculateNewDimensions(image.naturalWidth, image.naturalHeight);
+
+			canvas.value.width = newDimensions[0];
+			canvas.value.height = newDimensions[1];
+
+			context.drawImage(image, 0, 0, newDimensions[0], newDimensions[1]);
 		};
 	};
 
