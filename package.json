@@ -3,12 +3,15 @@
 	"version": "0.0.1",
 	"private": true,
 	"type": "module",
+	"homepage": "https://axon4.github.io/image-filters/",
 	"scripts": {
 		"dev": "vite",
 		"preview": "vite preview",
 		"type-check": "vue-tsc --build --force",
 		"build-only": "vite build",
-		"build": "run-p type-check \"build-only {@}\" --"
+		"build": "run-p type-check \"build-only {@}\" --",
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d dist/ -m \"deploy\" -b deploy"
 	},
 	"dependencies": {
 		"@silvia-odwyer/photon": "^0.3.2",
@@ -23,6 +26,7 @@
 		"@vitejs/plugin-vue": "^4.5.1",
 		"@vue/tsconfig": "^0.4.0",
 		"autoprefixer": "^10.4.16",
+		"gh-pages": "^6.1.0",
 		"npm-run-all2": "^6.1.1",
 		"postcss": "^8.4.32",
 		"tailwindcss": "^3.3.6",

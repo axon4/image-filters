@@ -29,5 +29,5 @@ coverage
 *.sln
 *.sw?
 
-# TypeScript
+# Vite
 *.tsbuildinfo

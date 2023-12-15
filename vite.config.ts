@@ -21,6 +21,7 @@ export default defineConfig({
 		WASM(),
 		TopLevelAWait()
 	],
+	base: '/image-filters/',
 	optimizeDeps: {
 		exclude: ['@silvia-odwyer/photon']
 	},
