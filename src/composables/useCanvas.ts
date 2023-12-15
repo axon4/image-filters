@@ -42,7 +42,7 @@ export default function useCanvas() {
 		if (canvas.value && context) {
 			const photonImage = open_image(canvas.value, context);
 
-			if (filterName.length) filter(photonImage, filterName.toLowerCase().replace('-', ''));
+			if (filterName.length) filter(photonImage, filterName.toLowerCase().replace('-', '').replace('é', 'e'));
 
 			putImageData(canvas.value, context, photonImage);
 			upDateCanvasImageURL();
