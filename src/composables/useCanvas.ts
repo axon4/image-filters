@@ -11,7 +11,7 @@ export default function useCanvas() {
 		return [width * aspectRatio, height * aspectRatio];
 	};
 
-	function draw() {
+	function drawOriginal() {
 		if (canvas.value && context) {
 			const newDimensions = calculateNewDimensions(image.naturalWidth, image.naturalHeight);
 
@@ -26,10 +26,10 @@ export default function useCanvas() {
 		if (canvas.value) {
 			context = canvas.value.getContext('2d');
 			
-			image.addEventListener('load', draw);
+			image.addEventListener('load', drawOriginal);
 			image.src = URL;
 		};
 	};
 
-	return { canvas, load };
+	return { canvas, drawOriginal, load };
 };
