@@ -5,11 +5,16 @@ export default function useCanvas() {
 	const canvas = ref<HTMLCanvasElement | null>(null);
 	let context: CanvasRenderingContext2D | null = null;
 	const image = new Image();
+	const canvasImageURL = ref('');
 
 	function calculateNewDimensions(width: number, height: number) {
 		const aspectRatio = Math.min(448 / width, 448, height);
 
 		return [width * aspectRatio, height * aspectRatio];
+	};
+
+	function upDateCanvasImageURL() {
+		if (canvas.value) canvasImageURL.value = canvas.value?.toDataURL();
 	};
 
 	function drawOriginal() {
@@ -20,6 +25,7 @@ export default function useCanvas() {
 			canvas.value.height = newDimensions[1];
 
 			context.drawImage(image, 0, 0, newDimensions[0], newDimensions[1]);
+			upDateCanvasImageURL();
 		};
 	};
 
@@ -39,8 +45,9 @@ export default function useCanvas() {
 			if (filterName.length) filter(photonImage, filterName.toLowerCase().replace('-', ''));
 
 			putImageData(canvas.value, context, photonImage);
+			upDateCanvasImageURL();
 		};
 	};
 
-	return { canvas, drawOriginal, load, filterImage };
+	return { canvas, canvasImageURL, drawOriginal, load, filterImage };
 };
