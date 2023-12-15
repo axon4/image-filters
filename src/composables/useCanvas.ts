@@ -1,4 +1,5 @@
 import { ref } from 'vue';
+import { filter, open_image, putImageData } from '@silvia-odwyer/photon';
 
 export default function useCanvas() {
 	const canvas = ref<HTMLCanvasElement | null>(null);
@@ -25,11 +26,21 @@ export default function useCanvas() {
 	function load(URL: string) {
 		if (canvas.value) {
 			context = canvas.value.getContext('2d');
-			
+
 			image.addEventListener('load', drawOriginal);
 			image.src = URL;
 		};
 	};
 
-	return { canvas, drawOriginal, load };
+	function filterImage(filterName: string) {
+		if (canvas.value && context) {
+			const photonImage = open_image(canvas.value, context);
+
+			if (filterName.length) filter(photonImage, filterName.toLowerCase().replace('-', ''));
+
+			putImageData(canvas.value, context, photonImage);
+		};
+	};
+
+	return { canvas, drawOriginal, load, filterImage };
 };

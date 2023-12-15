@@ -16,7 +16,7 @@
 	import useFileReader from '@/composables/useFileReader';
 
 	const store = useImageStore();
-	const { canvas, drawOriginal, load } = useCanvas();
+	const { canvas, load, drawOriginal, filterImage } = useCanvas();
 	const fileReader = useFileReader(store.file, () => {
 		if (fileReader.result) {
 			const dataURL = fileReader.result.toString();
@@ -26,7 +26,8 @@
 	});
 	const filters = ['Oceanic', 'Vintage', 'Rose-Tint'];
 
-	store.$subscribe(() => {
+	store.$subscribe((_mutation, state) => {
 		drawOriginal();
+		filterImage(state.filter);
 	});
 </script>
